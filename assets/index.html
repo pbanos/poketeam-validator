@@ -2,8 +2,8 @@
 
 <html lang="en">
 <head>
-    <title>Pokémon Team Planner</title>
-    <meta name="description" content="A team planner tool for the Pokémon games.">
+    <title>Validador de equipos Pokémon - Torneo Pokedada Levantia 2017</title>
+    <meta name="description" content="Herramienta para validar equipos Pokémon para el Torneo Pokedada Levantia 2017">
     <meta charset="utf-8">
     <link href="static/bootstrap.min.css" rel="stylesheet">
     <link href="static/style.css" rel="stylesheet">
@@ -21,14 +21,15 @@
 <body>
 
 <article id="national-dex">
+    <h1>Torneo Pokedada Levantia 2017<br/>Validador de equipos&nbsp;</h1>
     <div id="loader">
         <img src="static/pokeball.png">
         <img src="static/art.png" class="hidden">
         <img src="static/menusprites.png" class="hidden">
     </div>
-    <h1 title="Pokémon Team Planner">Team Planner</h1>
+    
     <section id="team">
-        <h2>Your Team</h2>
+        <h2>Tu equipo</h2>
         <ul class="picked">
             <li class="free">
                 <figure class="unknown">
@@ -37,6 +38,9 @@
                 <div class="info unknown">
                     <span class="name">???</span>
                     <span class="type unknown">???</span><span class="type unknown">???</span>
+                    <div class="tournament">
+                        <p class="hidden units"><span class="points">0</span> puntos</p>
+                    </div>
                 </div>
             <li class="free">
                 <figure class="unknown">
@@ -45,6 +49,9 @@
                 <div class="info unknown">
                     <span class="name">???</span>
                     <span class="type unknown">???</span><span class="type unknown">???</span>
+                    <div class="tournament">
+                        <p class="hidden units"><span class="points">0</span> puntos</p>
+                    </div>
                 </div>
             <li class="free">
                 <figure class="unknown">
@@ -53,6 +60,9 @@
                 <div class="info unknown">
                     <span class="name">???</span>
                     <span class="type unknown">???</span><span class="type unknown">???</span>
+                    <div class="tournament">
+                        <p class="hidden units"><span class="points">0</span> puntos</p>
+                    </div>
                 </div>
             <li class="free">
                 <figure class="unknown">
@@ -61,6 +71,9 @@
                 <div class="info unknown">
                     <span class="name">???</span>
                     <span class="type unknown">???</span><span class="type unknown">???</span>
+                    <div class="tournament">
+                        <p class="hidden units"><span class="points">0</span> puntos</p>
+                    </div>
                 </div>
             <li class="free">
                 <figure class="unknown">
@@ -69,6 +82,9 @@
                 <div class="info unknown">
                     <span class="name">???</span>
                     <span class="type unknown">???</span><span class="type unknown">???</span>
+                    <div class="tournament">
+                        <p class="hidden units"><span class="points">0</span> puntos</p>
+                    </div>
                 </div>
             <li class="free">
                 <figure class="unknown">
@@ -77,321 +93,330 @@
                 <div class="info unknown">
                     <span class="name">???</span>
                     <span class="type unknown">???</span><span class="type unknown">???</span>
+                    <div class="tournament">
+                        <p class="hidden units"><span class="points">0</span> puntos</p>
+                    </div>
                 </div>
         </ul>
-        <a href="#" id="randomize" class="button" title="Randomize">?</a>
-        <a href="#" class="button" title="Show more info">+</a>
-        <a href="#" class="button hidden" title="Hide detailed info">−</a>
+        <a href="#" id="randomize" class="button" title="Equipo al azar">?</a>
+        <a href="#" class="button" title="Mostrar más información">+</a>
+        <a href="#" class="button hidden" title="Ocultar información detallada">−</a>
         <div class="more hidden">
             <table id="team-weaknesses">
-                <caption>This Team Is Weak Against</caption>
+                <caption>Este equipo es débil contra</caption>
                 <tbody>
                     <tr class="type normal">
                         <th>Normal</th>
                         <td>0</td>
                     </tr><!--
                     --><tr class="type grass">
-                        <th>Grass</th>
+                        <th>Planta</th>
                         <td>0</td>
                     </tr><!--
                     --><tr class="type fire">
-                        <th>Fire</th>
+                        <th>Fuego</th>
                         <td>0</td>
                     </tr><!--
                     --><tr class="type water">
-                        <th>Water</th>
+                        <th>Agua</th>
                         <td>0</td>
                     </tr><!--
                     --><tr class="type fighting">
-                        <th>Fighting</th>
+                        <th>Lucha</th>
                         <td>0</td>
                     </tr><!--
                     --><tr class="type flying">
-                        <th>Flying</th>
+                        <th>Volador</th>
                         <td>0</td>
                     </tr><!--
                     --><tr class="type poison">
-                        <th>Poison</th>
+                        <th>Veneno</th>
                         <td>0</td>
                     </tr><!--
                     --><tr class="type ground">
-                        <th>Ground</th>
+                        <th>Tierra</th>
                         <td>0</td>
                     </tr><!--
                     --><tr class="type rock">
-                        <th>Rock</th>
+                        <th>Roca</th>
                         <td>0</td>
                     </tr><!--
                     --><tr class="type bug">
-                        <th>Bug</th>
+                        <th>Bicho</th>
                         <td>0</td>
                     </tr><!--
                     --><tr class="type ghost">
-                        <th>Ghost</th>
+                        <th>Fantasma</th>
                         <td>0</td>
                     </tr><!--
                     --><tr class="type electric">
-                        <th>Electric</th>
+                        <th>Eléctrico</th>
                         <td>0</td>
                     </tr><!--
                     --><tr class="type psychic">
-                        <th>Psychic</th>
+                        <th>Psíquico</th>
                         <td>0</td>
                     </tr><!--
                     --><tr class="type ice">
-                        <th>Ice</th>
+                        <th>Hielo</th>
                         <td>0</td>
                     </tr><!--
                     --><tr class="type dragon">
-                        <th>Dragon</th>
+                        <th>Dragón</th>
                         <td>0</td>
                     </tr><!--
                     --><tr class="type dark">
-                        <th>Dark</th>
+                        <th>Siniestro</th>
                         <td>0</td>
                     </tr><!--
                     --><tr class="type steel">
-                        <th>Steel</th>
+                        <th>Acero</th>
                         <td>0</td>
                     </tr><!--
                     --><tr class="type fairy">
-                        <th>Fairy</th>
+                        <th>Hada</th>
                         <td>0</td>
                     </tr>
                 </tbody>
             </table>
             <table id="team-immunities">
-                <caption>This Team Is Immune To</caption>
+                <caption>Este equipo es inmune a</caption>
                 <tbody>
                     <tr class="type normal">
                         <th>Normal</th>
                         <td>0</td>
                     </tr><!--
                     --><tr class="type grass">
-                        <th>Grass</th>
+                        <th>Planta</th>
                         <td>0</td>
                     </tr><!--
                     --><tr class="type fire">
-                        <th>Fire</th>
+                        <th>Fuego</th>
                         <td>0</td>
                     </tr><!--
                     --><tr class="type water">
-                        <th>Water</th>
+                        <th>Agua</th>
                         <td>0</td>
                     </tr><!--
                     --><tr class="type fighting">
-                        <th>Fighting</th>
+                        <th>Lucha</th>
                         <td>0</td>
                     </tr><!--
                     --><tr class="type flying">
-                        <th>Flying</th>
+                        <th>Volador</th>
                         <td>0</td>
                     </tr><!--
                     --><tr class="type poison">
-                        <th>Poison</th>
+                        <th>Veneno</th>
                         <td>0</td>
                     </tr><!--
                     --><tr class="type ground">
-                        <th>Ground</th>
+                        <th>Tierra</th>
                         <td>0</td>
                     </tr><!--
                     --><tr class="type rock">
-                        <th>Rock</th>
+                        <th>Roca</th>
                         <td>0</td>
                     </tr><!--
                     --><tr class="type bug">
-                        <th>Bug</th>
+                        <th>Bicho</th>
                         <td>0</td>
                     </tr><!--
                     --><tr class="type ghost">
-                        <th>Ghost</th>
+                        <th>Fantasma</th>
                         <td>0</td>
                     </tr><!--
                     --><tr class="type electric">
-                        <th>Electric</th>
+                        <th>Eléctrico</th>
                         <td>0</td>
                     </tr><!--
                     --><tr class="type psychic">
-                        <th>Psychic</th>
+                        <th>Psíquico</th>
                         <td>0</td>
                     </tr><!--
                     --><tr class="type ice">
-                        <th>Ice</th>
+                        <th>Hielo</th>
                         <td>0</td>
                     </tr><!--
                     --><tr class="type dragon">
-                        <th>Dragon</th>
+                        <th>Dragón</th>
                         <td>0</td>
                     </tr><!--
                     --><tr class="type dark">
-                        <th>Dark</th>
+                        <th>Siniestro</th>
                         <td>0</td>
                     </tr><!--
                     --><tr class="type steel">
-                        <th>Steel</th>
+                        <th>Acero</th>
                         <td>0</td>
                     </tr><!--
                     --><tr class="type fairy">
-                        <th>Fairy</th>
+                        <th>Hada</th>
                         <td>0</td>
                     </tr>
                 </tbody>
             </table>
             <table id="team-resistances">
-                <caption>This Team Resists</caption>
+                <caption>Este equipo resiste a</caption>
                 <tbody>
                     <tr class="type normal">
                         <th>Normal</th>
                         <td>0</td>
                     </tr><!--
                     --><tr class="type grass">
-                        <th>Grass</th>
+                        <th>Planta</th>
                         <td>0</td>
                     </tr><!--
                     --><tr class="type fire">
-                        <th>Fire</th>
+                        <th>Fuego</th>
                         <td>0</td>
                     </tr><!--
                     --><tr class="type water">
-                        <th>Water</th>
+                        <th>Agua</th>
                         <td>0</td>
                     </tr><!--
                     --><tr class="type fighting">
-                        <th>Fighting</th>
+                        <th>Lucha</th>
                         <td>0</td>
                     </tr><!--
                     --><tr class="type flying">
-                        <th>Flying</th>
+                        <th>Volador</th>
                         <td>0</td>
                     </tr><!--
                     --><tr class="type poison">
-                        <th>Poison</th>
+                        <th>Veneno</th>
                         <td>0</td>
                     </tr><!--
                     --><tr class="type ground">
-                        <th>Ground</th>
+                        <th>Tierra</th>
                         <td>0</td>
                     </tr><!--
                     --><tr class="type rock">
-                        <th>Rock</th>
+                        <th>Roca</th>
                         <td>0</td>
                     </tr><!--
                     --><tr class="type bug">
-                        <th>Bug</th>
+                        <th>Bicho</th>
                         <td>0</td>
                     </tr><!--
                     --><tr class="type ghost">
-                        <th>Ghost</th>
+                        <th>Fantasma</th>
                         <td>0</td>
                     </tr><!--
                     --><tr class="type electric">
-                        <th>Electric</th>
+                        <th>Eléctrico</th>
                         <td>0</td>
                     </tr><!--
                     --><tr class="type psychic">
-                        <th>Psychic</th>
+                        <th>Psíquico</th>
                         <td>0</td>
                     </tr><!--
                     --><tr class="type ice">
-                        <th>Ice</th>
+                        <th>Hielo</th>
                         <td>0</td>
                     </tr><!--
                     --><tr class="type dragon">
-                        <th>Dragon</th>
+                        <th>Dragón</th>
                         <td>0</td>
                     </tr><!--
                     --><tr class="type dark">
-                        <th>Dark</th>
+                        <th>Siniestro</th>
                         <td>0</td>
                     </tr><!--
                     --><tr class="type steel">
-                        <th>Steel</th>
+                        <th>Acero</th>
                         <td>0</td>
                     </tr><!--
                     --><tr class="type fairy">
-                        <th>Fairy</th>
+                        <th>Hada</th>
                         <td>0</td>
                     </tr>
                 </tbody>
             </table>
         </div>
         <div id="copy-url">
-            <p>Click the "Copy" button to copy your team's URL to your clipboard and share it with your friends and neighbors!</p>
+            <p>Haz clic en Copiar para copiar la URL de tu equipo al portapapeles y mandásela a los administradores para que validen tu equipo!</p>
             <input type="text" readonly><!--
-            --><a data-clipboard-target="#copy-url input">Copy</a>
+            --><a data-clipboard-target="#copy-url input">Copiar</a>
+        </div>
+    </section>
+    <section id="tournament">
+        <div class="info">
+            <h2>Puntos gastados</h2>
+            <span class="points">0</span>
         </div>
     </section>
     <section id="options">
-        <h2>Your Options</h2>
+        <h2>Añade un Pokémon a tu equipo</h2>
         <div id="filters">
-            <h3>Filters</h3><!--
+            <h3>Filtros</h3><!--
             --><div class="filter">
-                <label for="gen-filter">Generation</label>
+                <label for="gen-filter">Generación</label>
                 <select id="gen-filter" multiple>
-                    <option value="gen1">Generation I</option>
-                    <option value="gen2">Generation II</option>
-                    <option value="gen3">Generation III</option>
-                    <option value="gen4">Generation IV</option>
-                    <option value="gen5">Generation V</option>
-                    <option value="gen6">Generation VI</option>
-                    <option value="gen7">Generation VII</option>
+                    <option value="gen1">1ª Generación</option>
+                    <option value="gen2">2ª Generación</option>
+                    <option value="gen3">3ª Generación</option>
+                    <option value="gen4">4ª Generación</option>
+                    <option value="gen5">5ª Generación</option>
+                    <option value="gen6">6ª Generación</option>
+                    <option value="gen7">7ª Generación </option>
                 </select>
             </div><!--
             --><div class="filter">
-                <label for="type-filter">Type</label>
+                <label for="type-filter">Tipo</label>
                 <select id="type-filter" multiple>
                     <option value="normal">Normal</option>
-                    <option value="grass">Grass</option>
-                    <option value="fire">Fire</option>
-                    <option value="water">Water</option>
-                    <option value="fighting">Fighting</option>
-                    <option value="flying">Flying</option>
-                    <option value="poison">Poison</option>
-                    <option value="ground">Ground</option>
-                    <option value="rock">Rock</option>
-                    <option value="bug">Bug</option>
-                    <option value="ghost">Ghost</option>
-                    <option value="electric">Electric</option>
-                    <option value="psychic">Psychic</option>
-                    <option value="ice">Ice</option>
-                    <option value="dragon">Dragon</option>
-                    <option value="dark">Dark</option>
-                    <option value="steel">Steel</option>
-                    <option value="fairy">Fairy</option>
+                    <option value="grass">Planta</option>
+                    <option value="fire">Fuego</option>
+                    <option value="water">Agua</option>
+                    <option value="fighting">Lucha</option>
+                    <option value="flying">Volador</option>
+                    <option value="poison">Veneno</option>
+                    <option value="ground">Tierra</option>
+                    <option value="rock">Roca</option>
+                    <option value="bug">Bicho</option>
+                    <option value="ghost">Fantasma</option>
+                    <option value="electric">Eléctrico</option>
+                    <option value="psychic">Psíquico</option>
+                    <option value="ice">Hielo</option>
+                    <option value="dragon">Dragón</option>
+                    <option value="dark">Siniestro</option>
+                    <option value="steel">Acero</option>
+                    <option value="fairy">Hada</option>
                 </select>
             </div><!--
             --><div class="filter">
-                <label for="evolution-filter">Evolution</label>
+                <label for="evolution-filter">Evolución</label>
                 <select id="evolution-filter" multiple>
-                    <option value="nfe">Not Fully Evolved</option>
-                    <option value="fe">Fully Evolved</option>
-                    <option value="mega">Mega Evolved</option>
+                    <option value="nfe">No final</option>
+                    <option value="fe">Final</option>
+                    <option value="mega">Mega</option>
                 </select>
             </div><!--
-            --><a href="#" class="button" title="Show more filters">+</a><!--
-            --><a href="#" class="button hidden" title="Hide extra filters">−</a><!--
+            --><a href="#" class="button" title="Mostrar más filtros">+</a><!--
+            --><a href="#" class="button hidden" title="Ocultar filtros extra">−</a><!--
             --><div class="more">
                 <div class="filter hidden">
-                    <label for="resistance-filter">Resists</label>
+                    <label for="resistance-filter">Resiste</label>
                     <select id="resistance-filter" multiple>
                         <option value="normal">Normal</option>
-                        <option value="grass">Grass</option>
-                        <option value="fire">Fire</option>
-                        <option value="water">Water</option>
-                        <option value="fighting">Fighting</option>
-                        <option value="flying">Flying</option>
-                        <option value="poison">Poison</option>
-                        <option value="ground">Ground</option>
-                        <option value="rock">Rock</option>
-                        <option value="bug">Bug</option>
-                        <option value="ghost">Ghost</option>
-                        <option value="electric">Electric</option>
-                        <option value="psychic">Psychic</option>
-                        <option value="ice">Ice</option>
-                        <option value="dragon">Dragon</option>
-                        <option value="dark">Dark</option>
-                        <option value="steel">Steel</option>
-                        <option value="fairy">Fairy</option>
+                        <option value="grass">Planta</option>
+                        <option value="fire">Fuego</option>
+                        <option value="water">Agua</option>
+                        <option value="fighting">Lucha</option>
+                        <option value="flying">Volador</option>
+                        <option value="poison">Veneno</option>
+                        <option value="ground">Tierra</option>
+                        <option value="rock">Roca</option>
+                        <option value="bug">Bicho</option>
+                        <option value="ghost">Fantasma</option>
+                        <option value="electric">Eléctrico</option>
+                        <option value="psychic">Psíquico</option>
+                        <option value="ice">Hielo</option>
+                        <option value="dragon">Dragón</option>
+                        <option value="dark">Siniestro</option>
+                        <option value="steel">Acero</option>
+                        <option value="fairy">Hada</option>
                     </select>
                 </div>
             </div>
@@ -1338,15 +1363,17 @@
         </ol>
     </section>
     <footer>
-        <p class="links">Looking for another dex? Check out the planners for the <a href="/pokemon-team-planner/">Alola</a>, <a href="kalos_dex.html">Kalos</a>, and <a href="hoenn_dex.html">Hoenn</a> dexes.</p>
-        <p>Please report bugs or leave feedback in <a href="http://www.smogon.com/forums/threads/team-planner-for-pok%C3%A9mon-sun-moon.3585346/">this thread</a>.</p>
         <p>
-            © of <a href="http://twitter.com/richi3f">richi3f</a>, <time datetime="2016">2016</time><br>
-            Bootstrap is © of Twitter, <time datetime="2016">2016</time><br>
-            <a href="http://davidstutz.github.io/bootstrap-multiselect/">Bootstrap Multiselect</a> is © of <a href="http://davidstutz.de/">David Stutz</a>, <time datetime="2012">2012</time>-<time datetime="2014">2014</time><br>
-            <a href="https://clipboardjs.com">Clipboard.js</a> is © of <a href="http://zenorocha.com">Zeno Rocha</a>, <time datetime="2015">2015</time>-<time datetime="2016">2016</time><br>
-            Pokémon icons, names and typings datamined by Kaphotics, SciresM, Marty, smealum, Bond697, Slashmolder &amp; Normmatt<br>
-            Pokémon is © of Nintendo, <time datetime="1995">1995</time>-<time datetime="2016">2016</time>
+            Basado en <a href="https://richi3f.github.io/pokemon-team-planner/">Pokémon Sun and Moon Team Planner</a>, © de <a href="http://twitter.com/richi3f">richi3f</a>, <time datetime="2016">2016</time><br>
+            Las modificaciones son © de <a href="https://github.com/pbanos">pbanos</a>, <time datetime="2017">2017</time><br>
+            Disponible en <a href="https://github.com/pbanos/poketeam-validator">Github</a>
+        </p>
+        <p>
+            Bootstrap es © de Twitter, <time datetime="2016">2016</time><br>
+            <a href="http://davidstutz.github.io/bootstrap-multiselect/">Bootstrap Multiselect</a> es © de <a href="http://davidstutz.de/">David Stutz</a>, <time datetime="2012">2012</time>-<time datetime="2014">2014</time><br>
+            <a href="https://clipboardjs.com">Clipboard.js</a> es © de <a href="http://zenorocha.com">Zeno Rocha</a>, <time datetime="2015">2015</time>-<time datetime="2016">2016</time><br>
+            Iconos, nombres y tipos de Pokémon obtenidos por Kaphotics, SciresM, Marty, smealum, Bond697, Slashmolder &amp; Normmatt<br>
+            Pokémon es © de Nintendo, <time datetime="1995">1995</time>-<time datetime="2016">2016</time>
         </p>
     </footer>
 </article>

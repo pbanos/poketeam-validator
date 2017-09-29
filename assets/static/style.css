@@ -82,7 +82,7 @@ h1{
     text-align:center;
     margin:0 0 1em
 }
-h1::before{
+h1::after{
     content:" ";
     display:inline-block;
     background:url(logo-sm.png);
@@ -92,7 +92,7 @@ h1::before{
     vertical-align:top;
     margin:0 0.25em 0 0
 }
-#national-dex h1::before{
+#national-dex h1::after{
     background:url(logo.png);
     width:3em
 }
@@ -242,6 +242,12 @@ ul.picked li .info .name{
 }
 ul.picked li .info .type{
     line-height:1.125
+}
+p.units{
+    display: block;
+    font-size: 0.75em;
+    font-weight: 700;
+    margin: 0 0 0.5em
 }
 ol.picker li{
     cursor:pointer;

@@ -129,6 +129,7 @@ function addPkmnToTeam($this) {
         $slot = $("ul.picked .free").first();
     }
     $slot.removeClass("free");
+
     // get types in an array
     var j = 0;
     var types = [];
@@ -168,6 +169,7 @@ function addPkmnToTeam($this) {
     }
     // update team type analysis and URL hash
     updateTeamTypeAnalysis(pkmnClass);
+    updateTournamentConstraintsInfo($slot, pkmnClass, false);
     updateTeamHash();
 }
 function removePkmnFromTeam($this) {
@@ -177,6 +179,7 @@ function removePkmnFromTeam($this) {
     }
     // update team type analysis
     updateTeamTypeAnalysis(pkmnClass, true);
+    updateTournamentConstraintsInfo($this, pkmnClass, true);
     // make Pokémon visible again
     $("ol.picker .menu-sprite." + pkmnClass).parent().removeClass("picked");
     if (pkmnClass == "arceus" || pkmnClass == "silvally") {
@@ -222,7 +225,7 @@ function updateTeamTypeAnalysis(pkmnName, removed) {
             // update the number
             numberPkmn += removed ? -1 : 1;
             $td.text(numberPkmn);
-            $this.attr("title", numberPkmn + " Pokémon " + (numberPkmn == 1 ? "Is" : "Are")  + " Weak to the " + type.charAt(0).toUpperCase() + type.slice(1) + " Type!");
+            $this.attr("title", "¡" + numberPkmn + " Pokémon débil" + (numberPkmn == 1 ? "" : "es")  + " a este tipo !");
             // if number is too high, warn the user!
             if (numberPkmn > 2) {
                 $this.addClass("warning");
@@ -244,7 +247,7 @@ function updateTeamTypeAnalysis(pkmnName, removed) {
             // update the number
             numberPkmn += removed ? -1 : 1;
             $td.text(numberPkmn);
-            $this.attr("title", numberPkmn + " Pokémon " + (numberPkmn == 1 ? "Is" : "Are")  + " Immune to the " + type.charAt(0).toUpperCase() + type.slice(1) + " Type!");
+            $this.attr("title", "¡" + numberPkmn + " Pokémon inmune" + (numberPkmn == 1 ? "" : "s")  + " a este tipo!");
         }
     });
     $("#team-resistances .type").each(function() {
@@ -260,7 +263,7 @@ function updateTeamTypeAnalysis(pkmnName, removed) {
             // update the number
             numberPkmn += removed ? -1 : 1;
             $td.text(numberPkmn);
-            $this.attr("title", numberPkmn + " Pokémon Resist" + (numberPkmn == 1 ? 's' : '')  + " the " + type.charAt(0).toUpperCase() + type.slice(1) + " Type!");
+            $this.attr("title", "¡" + numberPkmn + " Pokémon resistente" + (numberPkmn == 1 ? '' : 's')  + " a este tipo!");
         }
     });
 }
@@ -284,6 +287,37 @@ function updateTeamHash() {
     window.location.hash = hashArray.join('+');
     $("#copy-url input").val(document.URL);
 }
+function updateTournamentConstraintsInfo($slot, pkmnClass, removed){
+    $pkmnPoints = $slot.find(".tournament .points");
+    var pkmnPoints = tournamentPoints[pkmnClass]
+    if (!pkmnPoints) {
+        pkmnPoints = 0
+    }
+    if (removed) {
+        $pkmnPoints.parent().addClass("hidden")
+        $pkmnPoints.text("0")
+    } else {
+        $pkmnPoints.parent().removeClass("hidden")
+        $pkmnPoints.text(pkmnPoints)
+    }
+    var $points = $("#tournament .info .points").first();
+    // get current total of points
+    var points = parseInt($points.text());
+    // update the number
+    if (removed) {
+        points -= pkmnPoints;
+    } else {
+        points += pkmnPoints;
+    }
+    $points.text(points);
+    $points.attr("title", "¡" + points + " puntos gastados!");
+    // if points is too high, warn the user!
+    if (points > 5) {
+        $points.addClass("warning");
+    } else {
+        $points.removeClass("warning");
+    }
+}
 var TypeMatchup = {
     "normal": 1,
     "grass": 1,
@@ -305,97 +339,108 @@ var TypeMatchup = {
     "fairy": 1
 };
 var type_matchups = {};
+var tournamentPoints = {};
 $(document).ready(function(){
-    // parse xml with type matchup data
-    $.get("static/type_data.xml", function(d){
-        $(d).find("Type").each(function() {
-            var $this = $(this);
-            // create new type matchup object
-            var current_matchup = Object.create(TypeMatchup);
-            // apply immunity multiplier for every type in the <UnaffectedBy /> tag
-            var types = $this.find("UnaffectedBy").text().toLowerCase().split(',');
-            for (i = 0; i < types.length; i++) {
-                current_matchup[types[i]] *= 0.0;
-            }
-            // apply resistance multiplier for every type in the <Resists /> tag
-            types = $this.find("Resists").text().toLowerCase().split(',');
-            for (i = 0; i < types.length; i++) {
-                current_matchup[types[i]] *= 0.5;
-            }
-            // apply weakness multiplier for every type in the <WeakTo /> tag
-            types = $this.find("WeakTo").text().toLowerCase().split(',');
-            for (i = 0; i < types.length; i++) {
-                current_matchup[types[i]] *= 2.0;
-            }
-            // get name of current type
-            var type = $this.find("Name").text().toLowerCase();
-            // save type matchup to dictionary
-            type_matchups[type] = current_matchup;
-        });
-        // pick each Pokémon to add weak2, immune2, or resists classes
-        $("ol.picker li").each(function() {
-            var $this = $(this);
-            // get the type of the Pokémon (which is a class)
-            var i = 0;
-            var types = [];
-            var classes = $this.attr("class").split(" ");
-            for (j= 0; j < classes.length; j++) {
-                if (typeof type_matchups[classes[j].slice(0, -1)] != "undefined") {
-                    types[i++] = classes[j].slice(0, -1);
+    // parse tournament points data
+    $.get("static/tournament-points.json", function(data){
+        if ($.type(data) === "string") {
+            data = JSON.parse(data)
+        }
+        for (var key in data) {
+            tournamentPoints[key] = data[key]
+        }
+        // parse xml with type matchup data
+        $.get("static/type_data.xml", function(d){
+            $(d).find("Type").each(function() {
+                var $this = $(this);
+                // create new type matchup object
+                var current_matchup = Object.create(TypeMatchup);
+                // apply immunity multiplier for every type in the <UnaffectedBy /> tag
+                var types = $this.find("UnaffectedBy").text().toLowerCase().split(',');
+                for (i = 0; i < types.length; i++) {
+                    current_matchup[types[i]] *= 0.0;
                 }
-            }
-            // create a blank type matchup
-            var type_matchup = Object.create(TypeMatchup);
-            if (types.length > 1) {
-                // multiply each type matchup (primary & secondary) to create dual type matchup
-                for (type in type_matchup) {
-                    type_matchup[type] = type_matchups[types[0]][type] * type_matchups[types[1]][type];
+                // apply resistance multiplier for every type in the <Resists /> tag
+                types = $this.find("Resists").text().toLowerCase().split(',');
+                for (i = 0; i < types.length; i++) {
+                    current_matchup[types[i]] *= 0.5;
                 }
-            } else {
-                // copy primary type matchup
-                for (type in type_matchup) {
-                    type_matchup[type] = type_matchups[types[0]][type];
+                // apply weakness multiplier for every type in the <WeakTo /> tag
+                types = $this.find("WeakTo").text().toLowerCase().split(',');
+                for (i = 0; i < types.length; i++) {
+                    current_matchup[types[i]] *= 2.0;
                 }
-            }
-            // make immune to Ground if Pokémon has Levitate
-            if ($this.hasClass("levitate")) {
-                type_matchup.ground *= 0.0;
-            }
-            // add weak2 or resists classes
-            for (type in type_matchup) {
-                if (type_matchup[type] < 1.0) {
-                    if (type_matchup[type] === 0.0) {
-                        $this.addClass("immune2-" + type);
-                    } else {
-                        $this.addClass("resists-" + type);
+                // get name of current type
+                var type = $this.find("Name").text().toLowerCase();
+                // save type matchup to dictionary
+                type_matchups[type] = current_matchup;
+            });
+            // pick each Pokémon to add weak2, immune2, or resists classes
+            $("ol.picker li").each(function() {
+                var $this = $(this);
+                // get the type of the Pokémon (which is a class)
+                var i = 0;
+                var types = [];
+                var classes = $this.attr("class").split(" ");
+                for (j= 0; j < classes.length; j++) {
+                    if (typeof type_matchups[classes[j].slice(0, -1)] != "undefined") {
+                        types[i++] = classes[j].slice(0, -1);
                     }
                 }
-                else if (type_matchup[type] > 1.0) {
-                    $this.addClass("weak2-" + type);
-                }
-            }
-        });
-        if(window.location.hash) {
-            window.location.hash.substring(1).split('+').forEach(function(pkmnClass) {
-                if (pkmnClass.startsWith("arceus") || pkmnClass.startsWith("silvally")) {
-                    var classes = pkmnClass.split('-');
-                    pkmnClass = classes[0];
-                    var type = "";
-                    if (classes.length > 1) {
-                        type = classes[1] + "1";
-                    } else {
-                        type = "normal1";
+                // create a blank type matchup
+                var type_matchup = Object.create(TypeMatchup);
+                if (types.length > 1) {
+                    // multiply each type matchup (primary & secondary) to create dual type matchup
+                    for (type in type_matchup) {
+                        type_matchup[type] = type_matchups[types[0]][type] * type_matchups[types[1]][type];
                     }
-                    $("ol.picker ." + type + " .menu-sprite." + pkmnClass).trigger("click");
                 } else {
-                    addPkmnToTeam($("ol.picker .menu-sprite." + pkmnClass));
+                    // copy primary type matchup
+                    for (type in type_matchup) {
+                        type_matchup[type] = type_matchups[types[0]][type];
+                    }
+                }
+                // make immune to Ground if Pokémon has Levitate
+                if ($this.hasClass("levitate")) {
+                    type_matchup.ground *= 0.0;
+                }
+                // add weak2 or resists classes
+                for (type in type_matchup) {
+                    if (type_matchup[type] < 1.0) {
+                        if (type_matchup[type] === 0.0) {
+                            $this.addClass("immune2-" + type);
+                        } else {
+                            $this.addClass("resists-" + type);
+                        }
+                    }
+                    else if (type_matchup[type] > 1.0) {
+                        $this.addClass("weak2-" + type);
+                    }
                 }
             });
-        }
+            if(window.location.hash) {
+                window.location.hash.substring(1).split('+').forEach(function(pkmnClass) {
+                    if (pkmnClass.startsWith("arceus") || pkmnClass.startsWith("silvally")) {
+                        var classes = pkmnClass.split('-');
+                        pkmnClass = classes[0];
+                        var type = "";
+                        if (classes.length > 1) {
+                            type = classes[1] + "1";
+                        } else {
+                            type = "normal1";
+                        }
+                        $("ol.picker ." + type + " .menu-sprite." + pkmnClass).trigger("click");
+                    } else {
+                        addPkmnToTeam($("ol.picker .menu-sprite." + pkmnClass));
+                    }
+                });
+            }
+        });
     });
+    
     $("#team-weaknesses tr").each(function() {
         var type = $(this).find("th").text();
-        $(this).attr("title", "Number of Pokémon Weak to the " + type + " Type");
+        $(this).attr("title", "Número de Pokémon débiles al tipo");
     });
     $("ol.picker .menu-sprite").each(function() {
        $(this).parent().attr("title", $(this).text());
